@@ -6,6 +6,7 @@ import cors from 'cors';
 import rateLimit from './middlewares/rateLimit.middleware';
 import errorMiddleware from './middlewares/error.middleware';
 import error_404 from './middlewares/error_404.middleware';
+import db from './database';
 
 const app: Application = express();
 
@@ -21,10 +22,6 @@ app.use(
   rateLimit,
   errorMiddleware
 );
-
-app.get('/', (_req, res) => {
-  res.status(200).send('hello');
-});
 
 app.use(error_404, errorMiddleware);
 
