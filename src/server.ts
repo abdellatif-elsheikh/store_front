@@ -1,8 +1,10 @@
 import express, { Application } from 'express';
+import config from './config';
 
 const app: Application = express();
 
-const PORT = 3000;
+const PORT = config.port;
+const HOST = config.host;
 
 app.get('/', (req, res) => {
   res.send('hello');
@@ -10,5 +12,5 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`app is running at http://localhost:${PORT}`);
+  console.log(`app is running at http://${HOST}:${PORT}`);
 });

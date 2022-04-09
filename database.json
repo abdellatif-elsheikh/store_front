@@ -5,7 +5,15 @@
     "user": {"ENV": "POSTGRES_USER"},
     "password": {"ENV": "POSTGRES_PASS"},
     "host": {"ENV": "POSTGRES_HOST"},
-    "database": {"ENV": "POSTGRES_DB"},
-    "port": {"ENV": "POSTGRES_PORT"}
+    "port": {"ENV": "POSTGRES_PORT"},
+    "database": {"ENV": "POSTGRES_DB"}
+  },
+  "test": {
+    "driver": "pg",
+    "user": {"ENV": "POSTGRES_USER"},
+    "password": {"ENV": "POSTGRES_PASS"},
+    "host": {"ENV": "POSTGRES_HOST"},
+    "port": {"ENV": "POSTGRES_PORT"},
+    "database": {"ENV": "POSTGRES_DB_TEST"}
   }
 }
