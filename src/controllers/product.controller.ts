@@ -50,3 +50,63 @@ export const create = async (
     next(error);
   }
 };
+
+export const getOne = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<unknown> => {
+  try {
+    const id = req.params.id as unknown as number;
+    const product = await productModel.getOne(id);
+    return res.status(200).json({
+      status: 200,
+      message: 'success',
+      data: product,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const update = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<unknown> => {
+  try {
+    const dataInput = await req.body;
+    const validation = schema.validate(dataInput);
+    if (validation.error) {
+      return res.status(422).json({
+        status: 422,
+        message: validation.error.message,
+      });
+    }
+    const id = req.params.id as unknown as number;
+    const product = await productModel.update(id, dataInput);
+    return res.status(200).json({
+      status: 200,
+      message: 'success',
+      data: product,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<unknown> => {
+  try {
+    const id = req.params.id as unknown as number;
+    const deleted = await productModel.delete(id);
+    return res.status(200).json({
+      deleted,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
