@@ -18,9 +18,11 @@ export const validateId = async (
 ): Promise<unknown> => {
   try {
     const id = req.params.id;
+    const table = req.baseUrl.split('/')[2];
+
     if (regex.test(id)) {
       const conn = await db.connect();
-      const sql = 'SELECT id FROM users WHERE id = $1';
+      const sql = `SELECT id FROM ${table} WHERE id = $1`;
       const result = await conn.query(sql, [id]);
       if (result.rows[0]) {
         return next();

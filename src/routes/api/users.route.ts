@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import * as controller from '../../controllers/user.controller';
 import validateToken from '../../middlewares/auth.middleware';
-import validateId from '../../middlewares/validateid.middleware';
+import validateId from '../../middlewares/validateId.middleware';
 
 const users = Router();
 

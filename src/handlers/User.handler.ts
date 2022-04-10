@@ -44,27 +44,3 @@ export const hashPassword = (password: string): string => {
   const salt = parseInt(config.salt as string);
   return bcrypt.hashSync(`${password}${config.pepper}`, salt);
 };
-
-const regex =
-  /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
-
-export const validateId = async (id: string): Promise<boolean> => {
-  try {
-    if (regex.test(id)) {
-      const conn = await db.connect();
-      const sql = 'SELECT id FROM users WHERE id = $1';
-      const result = await conn.query(sql, [id]);
-      if (result.rows[0]) {
-        return true;
-      }
-      return false;
-    }
-    return false;
-  } catch (error) {
-    throw new Error(
-      `this user is not found Error: ${(error as Error).stack} ${
-        (error as Error).message
-      } `
-    );
-  }
-};
