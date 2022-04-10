@@ -1,13 +1,10 @@
 import UserModel from '../models/User.model';
 import { Request, Response, NextFunction } from 'express';
-import {
-  schema,
-  validateId,
-  ValidateUserExists,
-} from '../handlers/User.handler';
+import { schema, ValidateUserExists } from '../handlers/User.handler';
 import Error from '../interfaces/error.interface';
 import config from '../config';
 import Jwt from 'jsonwebtoken';
+import User from '../types/User.type';
 
 const userModel = new UserModel();
 
@@ -128,4 +125,24 @@ export const deleteUser = async (
   } catch (error) {
     next(error);
   }
+};
+
+export const authenticate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<unknown> => {
+  const { email, password } = req.body;
+  const user = await userModel.authenticate(email, password);
+  if ((user as Error).status === 422) {
+    return res.status(422).json({
+      user,
+    });
+  }
+  const token = Jwt.sign({ user }, config.secretToken as string);
+  return res.status(200).json({
+    status: 200,
+    message: 'logged in successfully',
+    data: { ...user, token },
+  });
 };

@@ -12,4 +12,6 @@ users
   .put(validateToken, validateId, controller.update)
   .delete(validateToken, validateId, controller.deleteUser);
 
+users.route('/auth').post(controller.authenticate);
+
 export default users;
