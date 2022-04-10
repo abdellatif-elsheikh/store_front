@@ -1,6 +1,10 @@
 import UserModel from '../models/User.model';
 import { Request, Response, NextFunction } from 'express';
-import { schema, ValidateUserExists } from '../handlers/User.handler';
+import {
+  schema,
+  validateId,
+  ValidateUserExists,
+} from '../handlers/User.handler';
 import Error from '../interfaces/error.interface';
 import config from '../config';
 import Jwt from 'jsonwebtoken';
@@ -59,6 +63,31 @@ export const create = async (
       status: 200,
       message: 'success',
       data: { ...user, access_token },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getOne = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<unknown> => {
+  try {
+    const id = req.params.id;
+    const isUserFound = await validateId(id);
+    if (isUserFound) {
+      const user = await userModel.getOne(id);
+      return res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: user,
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      message: 'no user found',
     });
   } catch (error) {
     next(error);
