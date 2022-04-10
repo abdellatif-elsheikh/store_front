@@ -5,6 +5,9 @@ import * as controller from '../../controllers/product.controller';
 
 const products = Router();
 
-products.route('/').get(validateToken, controller.index);
+products
+  .route('/')
+  .get(validateToken, controller.index)
+  .post(controller.create);
 
 export default products;

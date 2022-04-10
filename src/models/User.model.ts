@@ -25,14 +25,15 @@ class UserModel {
       const conn = await db.connect();
       const sql = `INSERT INTO users(user_name, first_name, last_name, email, password, gender)
       VALUES ($1,$2,$3,$4,$5,$6) returning ${this.commonSelect}`;
-      const user = await conn.query(sql, [
+      const values = [
         u.user_name,
         u.first_name,
         u.last_name,
         u.email,
         hashPassword(u.password),
         u.gender,
-      ]);
+      ];
+      const user = await conn.query(sql, values);
       conn.release();
       return user.rows[0];
     } catch (error) {
@@ -59,7 +60,7 @@ class UserModel {
       const conn = await db.connect();
       const sql = `UPDATE users SET user_name = $1, first_name = $2, last_name = $3, email = $4,
     password = $5, gender = $6 WHERE id = $7 returning ${this.commonSelect}`;
-      const user = await conn.query(sql, [
+      const values = [
         u.user_name,
         u.first_name,
         u.last_name,
@@ -67,7 +68,8 @@ class UserModel {
         hashPassword(u.password),
         u.gender,
         id,
-      ]);
+      ];
+      const user = await conn.query(sql, values);
 
       conn.release();
       return user.rows[0];
