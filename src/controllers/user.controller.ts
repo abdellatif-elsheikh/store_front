@@ -76,18 +76,11 @@ export const getOne = async (
 ): Promise<unknown> => {
   try {
     const id = req.params.id;
-    const isUserFound = await validateId(id);
-    if (isUserFound) {
-      const user = await userModel.getOne(id);
-      return res.status(200).json({
-        status: 200,
-        message: 'success',
-        data: user,
-      });
-    }
-    return res.status(404).json({
-      status: 404,
-      message: 'no user found',
+    const user = await userModel.getOne(id);
+    return res.status(200).json({
+      status: 200,
+      message: 'success',
+      data: user,
     });
   } catch (error) {
     next(error);
@@ -110,18 +103,27 @@ export const update = async (
     }
 
     const id = req.params.id;
-    const isUserFound = await validateId(id);
-    if (isUserFound) {
-      const user = await userModel.update(id, dataInput);
-      return res.status(200).json({
-        status: 200,
-        message: 'success',
-        data: user,
-      });
-    }
-    return res.status(404).json({
-      status: 404,
-      message: 'no user found',
+    const user = await userModel.update(id, dataInput);
+    return res.status(200).json({
+      status: 200,
+      message: 'success',
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<unknown> => {
+  try {
+    const id = req.params.id;
+    const deleted = await userModel.delete(id);
+    return res.status(200).json({
+      deleted,
     });
   } catch (error) {
     next(error);

@@ -53,21 +53,43 @@ class UserModel {
   }
 
   async update(id: string, u: User): Promise<User> {
-    const conn = await db.connect();
-    const sql = `UPDATE users SET user_name = $1, first_name = $2, last_name = $3, email = $4,
+    try {
+      const conn = await db.connect();
+      const sql = `UPDATE users SET user_name = $1, first_name = $2, last_name = $3, email = $4,
     password = $5, gender = $6 WHERE id = $7 returning id, user_name, first_name, last_name, email, gender`;
-    const user = await conn.query(sql, [
-      u.user_name,
-      u.first_name,
-      u.last_name,
-      u.email,
-      u.password,
-      u.gender,
-      id,
-    ]);
+      const user = await conn.query(sql, [
+        u.user_name,
+        u.first_name,
+        u.last_name,
+        u.email,
+        u.password,
+        u.gender,
+        id,
+      ]);
 
-    conn.release();
-    return user.rows[0];
+      conn.release();
+      return user.rows[0];
+    } catch (error) {
+      throw new Error(
+        `something went wrong Error: ${(error as Error).message}`
+      );
+    }
+  }
+
+  async delete(id: string): Promise<{ status: number; message: string }> {
+    try {
+      const conn = await db.connect();
+      const sql = 'DELETE FROM users WHERE id = $1';
+      await conn.query(sql, [id]);
+      return {
+        status: 200,
+        message: 'success',
+      };
+    } catch (error) {
+      throw new Error(
+        `something went wrong Error: ${(error as Error).message}`
+      );
+    }
   }
 }
 
