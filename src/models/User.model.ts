@@ -43,13 +43,31 @@ class UserModel {
     try {
       const conn = await db.connect();
       const sql =
-        'SELECT user_name, first_name, last_name, email, gender FROM users WHERE id = $1';
+        'SELECT id, user_name, first_name, last_name, email, gender FROM users WHERE id = $1';
       const users = await conn.query(sql, [id]);
       conn.release();
       return users.rows[0];
     } catch (error) {
       throw new Error(`unable to get user Error: ${(error as Error).message}`);
     }
+  }
+
+  async update(id: string, u: User): Promise<User> {
+    const conn = await db.connect();
+    const sql = `UPDATE users SET user_name = $1, first_name = $2, last_name = $3, email = $4,
+    password = $5, gender = $6 WHERE id = $7 returning id, user_name, first_name, last_name, email, gender`;
+    const user = await conn.query(sql, [
+      u.user_name,
+      u.first_name,
+      u.last_name,
+      u.email,
+      u.password,
+      u.gender,
+      id,
+    ]);
+
+    conn.release();
+    return user.rows[0];
   }
 }
 

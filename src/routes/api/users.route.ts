@@ -5,6 +5,9 @@ import validateToken from '../../middlewares/auth.middleware';
 const users = Router();
 
 users.route('/').get(validateToken, controller.index).post(controller.create);
-users.route('/:id').get(validateToken, controller.getOne);
+users
+  .route('/:id')
+  .get(validateToken, controller.getOne)
+  .put(validateToken, controller.update);
 
 export default users;

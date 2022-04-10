@@ -93,3 +93,37 @@ export const getOne = async (
     next(error);
   }
 };
+
+export const update = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<unknown> => {
+  try {
+    const dataInput = await req.body;
+    const validation = schema.validate(dataInput);
+    if (validation.error) {
+      return res.status(422).json({
+        status: 422,
+        message: validation.error.message,
+      });
+    }
+
+    const id = req.params.id;
+    const isUserFound = await validateId(id);
+    if (isUserFound) {
+      const user = await userModel.update(id, dataInput);
+      return res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: user,
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      message: 'no user found',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
