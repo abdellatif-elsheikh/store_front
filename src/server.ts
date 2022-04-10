@@ -14,14 +14,7 @@ const PORT = config.port;
 const HOST = config.host;
 
 // Use main middlewares
-app.use(
-  express.json(),
-  morgan('common'),
-  helmet(),
-  cors(),
-  rateLimit,
-  errorMiddleware
-);
+app.use(express.json(), morgan('common'), helmet(), cors(), rateLimit);
 
 app.get('/', (_req: Request, res: Response) => {
   res.status(200).json({
@@ -34,7 +27,7 @@ app.get('/', (_req: Request, res: Response) => {
 app.use('/api', routes);
 // ERROR 404 MIDDLEWARE
 // ! THIS SHOULD BE ALWAYS AT THE END
-app.use(error_404);
+app.use(errorMiddleware, error_404);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

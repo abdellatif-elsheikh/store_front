@@ -11,16 +11,16 @@ export const index = async (
   _req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<unknown> => {
   try {
     const users = await userModel.index();
     if (!users[0]) {
-      res.status(200).json({
+      return res.status(404).json({
         status: 404,
         message: 'no users found',
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       message: 'success',
       data: users,
@@ -34,7 +34,7 @@ export const create = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<unknown> => {
   try {
     const dataInput = await req.body;
     const email = dataInput.email;
@@ -42,7 +42,7 @@ export const create = async (
     let checkUser = await ValidateUserExists(email, userName);
     if (checkUser) {
       checkUser = checkUser as Error;
-      return res.status(checkUser.status).json({
+      return res.status(checkUser.status as number).json({
         checkUser,
       });
     }
@@ -54,7 +54,7 @@ export const create = async (
       });
     }
     const user = await userModel.create(dataInput);
-    const access_token = Jwt.sign({ user }, config.token as string);
+    const access_token = Jwt.sign({ user }, config.secretToken as string);
     return res.status(200).json({
       status: 200,
       message: 'success',

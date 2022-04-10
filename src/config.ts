@@ -25,7 +25,7 @@ export default {
   user: POSTGRES_USER,
   password: POSTGRES_PASS,
   database: NODE_ENV === 'test' ? POSTGRES_DB_TEST : POSTGRES_DB,
-  token: SECRET_TOKEN,
+  secretToken: SECRET_TOKEN,
   pepper: BCRYPT_PASSWORD,
   salt: SALT_ROUNDS,
 };
