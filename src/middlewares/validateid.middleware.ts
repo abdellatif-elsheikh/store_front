@@ -22,7 +22,6 @@ export const validateId = async (
   try {
     const id = req.params.id;
     const table = req.baseUrl.split('/')[2];
-    console.log(table);
 
     if (regex.test(id)) {
       const conn = await db.connect();
