@@ -2,53 +2,82 @@
 
 ## Getting Started
 
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+Follow the instructions to get the best of this project
 
 ## Required Technologies
-Your application must make use of the following libraries:
+
+you will need those technologies to run this project
+
 - Postgres for the database
-- Node/Express for the application logic
-- dotenv from npm for managing environment variables
-- db-migrate from npm for migrations
-- jsonwebtoken from npm for working with JWTs
-- jasmine from npm for testing
+- Node >= 14
+- bash
 
-## Steps to Completion
+## starting
 
-### 1. Plan to Meet Requirements
+you will need to run one of those commands in the root directory
 
-In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend. This is much like a document you might come across in real life when building or extending an API. 
+`yarn`
+`npm i`
 
-Your first task is to read the requirements and update the document with the following:
-- Determine the RESTful route for each endpoint listed. Add the RESTful route and HTTP verb to the document so that the frontend developer can begin to build their fetch requests.    
-**Example**: A SHOW route: 'blogs/:id' [GET] 
+### 1. setup the project
 
-- Design the Postgres database tables based off the data shape requirements. Add to the requirements document the database tables and columns being sure to mark foreign keys.   
-**Example**: You can format this however you like but these types of information should be provided
-Table: Books (id:varchar, title:varchar, author:varchar, published_year:varchar, publisher_id:string[foreign key to publishers table], pages:number)
+first create .env file to hold the required information's
+in .env file create the necessary environment variables
+example (
+PORT=3000
+HOST=localhost
+# DATABASE ENV
+NODE_ENV=dev
+POSTGRES_PORT=5432
+POSTGRES_HOST = localhost
+POSTGRES_USER = postgres
+POSTGRES_PASS = password
+POSTGRES_DB = store_front
+POSTGRES_DB_TEST = store_front_test
 
-**NOTE** It is important to remember that there might not be a one to one ratio between data shapes and database tables. Data shapes only outline the structure of objects being passed between frontend and API, the database may need multiple tables to store a single shape. 
+# Secrets
+BCRYPT_PASSWORD = $fasfds!%5df4554&gfg*878sdf
+SECRET_TOKEN = @545ssd!ds12^vfroandom-secret-token-43re4$454sdf54%54dfs
 
-### 2.  DB Creation and Migrations
+SALT_ROUNDS=12
+)
 
-Now that you have the structure of the databse outlined, it is time to create the database and migrations. Add the npm packages dotenv and db-migrate that we used in the course and setup your Postgres database. If you get stuck, you can always revisit the database lesson for a reminder. 
+### 2. DB Creation and Migrations
 
-You must also ensure that any sensitive information is hashed with bcrypt. If any passwords are found in plain text in your application it will not pass.
+you will only need to create 2 new databases in your local machine
+you can name them like store_front, store_front_test
+then you will need to run this command in root directory to migrate the tables
+bash 
+`db-migrate up`
 
-### 3. Models
+### 3. starting with the server
+run one of these this command
+`yarn start`
+or
+`yarn dev`
 
-Create the models for each database table. The methods in each model should map to the endpoints in `REQUIREMENTS.md`. Remember that these models should all have test suites and mocks.
+### to lint the project and fix problems
+run those commands
+`yarn lint` to find the problems
+`yarn lint --fix` to fix them if eslint can
 
-### 4. Express Handlers
+### to format
+run this command
+`yarn format`
 
-Set up the Express handlers to route incoming requests to the correct model method. Make sure that the endpoints you create match up with the enpoints listed in `REQUIREMENTS.md`. Endpoints must have tests and be CORS enabled. 
+### to compile typescript
+run this command
+`yarn build`
+or
+`yarn watch`
 
-### 5. JWTs
+### to start testing
+run this command
+`yarn test`
 
-Add JWT functionality as shown in the course. Make sure that JWTs are required for the routes listed in `REQUIUREMENTS.md`.
+#### where the server run?
+by default server will run on <http://localhost:3000>
+but feel free to change these sittings from the env file
 
-### 6. QA and `README.md`
-
-Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
-
-Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+### where are the end points
+you will find that on more in the requirements file

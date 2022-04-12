@@ -10,8 +10,8 @@ import routes from './routes/index.route';
 
 const app: Application = express();
 
-const PORT = config.port;
-const HOST = config.host;
+const PORT = config.port || 3000;
+const HOST = config.host || 'localhost';
 
 // Use main middlewares
 app.use(express.json(), morgan('common'), helmet(), cors(), rateLimit);

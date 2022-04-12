@@ -4,17 +4,21 @@ The company stakeholders want to create an online storefront to showcase their g
 These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
 
 ## API Endpoints
+
+### basic url <http://localhost/api/>
+
+#### Users
+  use [basic url](#basic-url)
+- Index [token required]
+- Create N[token required]
+- getOne [token required]
+
 #### Products
 - Index 
-- Show
+- getOne
 - Create [token required]
 - [OPTIONAL] Top 5 most popular products 
 - [OPTIONAL] Products by category (args: product category)
-
-#### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
 
 #### Orders
 - Current Order by user (args: user id)[token required]
