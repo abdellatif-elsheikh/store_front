@@ -5,14 +5,11 @@ import * as controller from '../../controllers/product.controller';
 
 const products = Router();
 
-products
-  .route('/')
-  .get(validateToken, controller.index)
-  .post(controller.create);
+products.route('/').get(controller.index).post(controller.create);
 
 products
   .route('/:id')
-  .get(validateToken, validateId, controller.getOne)
+  .get(validateId, controller.getOne)
   .put(validateToken, validateId, controller.update)
   .delete(validateToken, validateId, controller.deleteProduct);
 
