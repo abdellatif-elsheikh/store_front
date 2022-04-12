@@ -87,7 +87,7 @@ class OrderProductModel {
       conn.release();
       return {
         status: 200,
-        message: 'success',
+        message: 'order_product deleted',
       };
     } catch (error) {
       throw new Error(

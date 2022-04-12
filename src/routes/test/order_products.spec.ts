@@ -15,11 +15,12 @@ const request = supertest(app);
 
 let token = '';
 let orderId = '';
+let order_product_id = '';
 
 describe('test order product model', () => {
   const user = {
-    user_name: 'order',
-    email: 'order@email.com',
+    user_name: 'teest',
+    email: 'teest@email.com',
     first_name: 'first',
     last_name: 'last',
     password: 'test',
@@ -77,7 +78,8 @@ describe('test order product model', () => {
           quantity: 2,
         });
 
-      const { order_id, product_id, quantity } = res.body.data;
+      const { id, order_id, product_id, quantity } = res.body.data;
+      order_product_id = id;
       expect(res.status).toBe(201);
       expect(order_id).toBe(orderId);
       expect(product_id).toBe(product.id);
@@ -93,6 +95,42 @@ describe('test order product model', () => {
       expect(res.status).toBe(200);
       expect(res.body.data.length).toBeGreaterThan(0);
       expect(res.body.data[0].order_id).toBe(orderId);
+    });
+
+    it('should be able to get order_products by order_id and product id', async () => {
+      const res = await request
+        .get(`/api/order_products/${orderId}/products/${product.id}`)
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.status).toBe(200);
+      expect(res.body.data.user).toBe(user.user_name);
+      expect(res.body.data.order_id).toBe(orderId);
+      expect(res.body.data.product_id).toBe(product.id);
+      expect(res.body.data.quantity).toBe(2);
+      expect(res.body.data.category).toBe(product.category);
+    });
+
+    it('should be able to update order_products', async () => {
+      const res = await request
+        .put(`/api/order_products/${order_product_id}`)
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          order_id: orderId,
+          product_id: product.id,
+          quantity: 3,
+        });
+      expect(res.status).toBe(200);
+      expect(res.body.data.quantity).toBe(3);
+    });
+
+    it('should be able to delete order_products', async () => {
+      const res = await request
+        .delete(`/api/order_products/${order_product_id}`)
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.status).toBe(200);
+      expect(res.body.deleted.message).toBe('order_product deleted');
     });
   });
 });
