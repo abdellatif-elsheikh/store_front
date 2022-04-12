@@ -1,4 +1,4 @@
-import ProductModel from '../models/Product.modle';
+import ProductModel from '../models/Product.model';
 import { Request, Response, NextFunction } from 'express';
 import { schema } from '../handlers/Product.handler';
 

@@ -3,9 +3,8 @@ import db from '../../database';
 import app from '../../server';
 import User from '../../types/User.type';
 import UserModel from '../../models/User.model';
-import ProductModel from '../../models/Product.modle';
+import ProductModel from '../../models/Product.model';
 import OrderModel from '../../models/Order.model';
-import Order from '../../types/Order.type';
 import Product from '../../types/Product.type';
 
 const userModel = new UserModel();
@@ -17,7 +16,7 @@ let token = '';
 let orderId = '';
 let order_product_id = '';
 
-describe('test order product model', () => {
+xdescribe('test order product model', () => {
   const user = {
     user_name: 'teest',
     email: 'teest@email.com',
