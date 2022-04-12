@@ -76,7 +76,7 @@ class ProductModel {
       conn.release();
       return {
         status: 200,
-        message: 'success',
+        message: 'Product deleted successfully',
       };
     } catch (error) {
       throw new Error(

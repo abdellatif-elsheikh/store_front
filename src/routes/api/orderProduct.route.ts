@@ -1,21 +1,23 @@
 import { Router } from 'express';
+import * as controller from '../../controllers/orderProduct.controller';
 import validateToken from '../../middlewares/auth.middleware';
 import validateId from '../../middlewares/validateId.middleware';
-import * as controller from '../../controllers/order.controller';
 
-const orders = Router();
+const orderProduct = Router();
 
-orders
+orderProduct
   .route('/')
   .get(validateToken, controller.index)
   .post(validateToken, controller.create);
 
-orders
+orderProduct.get(
+  '/:order_id/products/:product_id',
+  validateToken,
+  controller.getOne
+);
+orderProduct
   .route('/:id')
-  .get(validateToken, validateId, controller.getOne)
   .put(validateToken, validateId, controller.update)
-  .delete(validateToken, validateId, controller.deleteOne);
+  .delete(validateId, validateToken, controller.deleteOne);
 
-orders.route('/users/:id').get(validateToken, controller.getOrdersByUserId);
-
-export default orders;
+export default orderProduct;

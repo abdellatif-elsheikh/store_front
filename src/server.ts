@@ -33,3 +33,5 @@ app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`app is running at http://${HOST}:${PORT}`);
 });
+
+export default app;

@@ -87,7 +87,7 @@ class UserModel {
       await conn.query(sql, [id]);
       return {
         status: 200,
-        message: 'success',
+        message: 'User deleted successfully',
       };
     } catch (error) {
       throw new Error(

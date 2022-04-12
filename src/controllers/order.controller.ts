@@ -109,3 +109,21 @@ export const deleteOne = async (
     next(error);
   }
 };
+
+export const getOrdersByUserId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<unknown> => {
+  try {
+    const { id } = req.params;
+    const orders = await orderModel.getOrdersByUserId(id);
+    return res.status(200).json({
+      status: 200,
+      message: 'success',
+      data: orders,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

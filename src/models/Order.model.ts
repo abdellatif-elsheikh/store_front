@@ -62,10 +62,28 @@ class OrderModel {
       conn.release();
       return {
         status: 200,
-        message: 'success',
+        message: 'Order deleted successfully',
       };
     } catch (error) {
       throw new Error(`cant delete this order ${(error as Error).message}`);
+    }
+  }
+
+  async getOrdersByUserId(id: string): Promise<Order[]> {
+    try {
+      const conn = await db.connect();
+      const sql = `SELECT o.id, o.status, u.id as user_id, u.user_name as user_name,
+      JSON_BUILD_OBJECT('id', p.id, 'name',p.name ,'price', p.price, 'category', p.category) as products
+      FROM users u LEFT JOIN orders o ON u.id = o.user_id
+      LEFT JOIN order_products op ON o.id = op.order_id
+      LEFT JOIN products p ON p.id = op.product_id
+      WHERE u.id = $1
+      GROUP BY  u.id, o.id, p.id`;
+      const orders = await conn.query(sql, [id]);
+      conn.release();
+      return orders.rows;
+    } catch (error) {
+      throw new Error(`can't get orders Error ${(error as Error).message}`);
     }
   }
 }
