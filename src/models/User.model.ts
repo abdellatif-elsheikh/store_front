@@ -85,6 +85,7 @@ class UserModel {
       const conn = await db.connect();
       const sql = 'DELETE FROM users WHERE id = $1';
       await conn.query(sql, [id]);
+      conn.release();
       return {
         status: 200,
         message: 'User deleted successfully',

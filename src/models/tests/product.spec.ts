@@ -2,7 +2,7 @@ import ProductModel from '../Product.model';
 
 const productModel = new ProductModel();
 
-fdescribe('Product model', () => {
+describe('Product model', () => {
   describe('Test methods exist', () => {
     it('index method should be defined', () => {
       expect(productModel.index).toBeDefined();

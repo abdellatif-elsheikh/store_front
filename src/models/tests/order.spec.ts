@@ -2,7 +2,7 @@ import OrderModel from '../Order.model';
 
 const orderModel = new OrderModel();
 
-fdescribe('Order model', () => {
+describe('Order model', () => {
   describe('Test methods exist', () => {
     it('index method should be defined', () => {
       expect(orderModel.index).toBeDefined();

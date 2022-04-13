@@ -28,8 +28,10 @@ export const validateId = async (
       const sql = `SELECT id FROM ${table} WHERE id = $1`;
       const result = await conn.query(sql, [id]);
       if (result.rows[0]) {
+        conn.release();
         return next();
       }
+      conn.release();
       return handelNoUser(next, table);
     }
     return handelNoUser(next, table);

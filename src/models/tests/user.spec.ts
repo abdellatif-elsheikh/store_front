@@ -2,7 +2,7 @@ import UserModel from '../User.model';
 
 const userModel = new UserModel();
 
-fdescribe('User Model', () => {
+describe('User Model', () => {
   describe('Test methods exist', () => {
     it('index method should be defined', () => {
       expect(userModel.index).toBeDefined();

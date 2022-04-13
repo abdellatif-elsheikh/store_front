@@ -8,7 +8,7 @@ const userModel = new UserModel();
 const request = supertest(app);
 let token = '';
 
-xdescribe('user api endpoints', () => {
+describe('user api endpoints', () => {
   const user = {
     user_name: 'test',
     email: 'test@email.com',

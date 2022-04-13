@@ -9,7 +9,7 @@ const request = supertest(app);
 let token = '';
 let productId = '';
 
-xdescribe('test products endpoints', () => {
+describe('test products endpoints', () => {
   const user = {
     user_name: 'order',
     email: 'order@email.com',
@@ -31,10 +31,13 @@ xdescribe('test products endpoints', () => {
 
   describe('test auth', () => {
     it('should be able to authenticate user', async () => {
-      const res = await request.post('/api/users/auth').send({
-        email: user.email,
-        password: user.password,
-      });
+      const res = await request
+        .post('/api/users/auth')
+        .set('Content-type', 'application/json')
+        .send({
+          email: user.email,
+          password: user.password,
+        });
       expect(res.status).toBe(200);
       expect(res.body.data.token).toBeDefined();
       token = res.body.data.token;

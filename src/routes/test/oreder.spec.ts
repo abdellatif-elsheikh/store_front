@@ -3,7 +3,6 @@ import db from '../../database';
 import app from '../../server';
 import User from '../../types/User.type';
 import UserModel from '../../models/User.model';
-import Product from '../../types/Product.type';
 
 const userModel = new UserModel();
 const request = supertest(app);
@@ -19,11 +18,6 @@ describe('order api endpoints', () => {
     password: 'test',
     gender: 'male',
   } as User;
-  const product = {
-    name: 'test',
-    price: 100,
-    category: 'test',
-  } as Product;
   beforeAll(async () => {
     const createUser = await userModel.create(user);
     user.id = createUser.id;
@@ -38,10 +32,13 @@ describe('order api endpoints', () => {
 
   describe('test auth', () => {
     it('should be able to authenticate user', async () => {
-      const res = await request.post('/api/users/auth').send({
-        email: user.email,
-        password: user.password,
-      });
+      const res = await request
+        .post('/api/users/auth')
+        .set('Content-type', 'application/json')
+        .send({
+          email: user.email,
+          password: user.password,
+        });
       expect(res.status).toBe(200);
       expect(res.body.data.token).toBeDefined();
       expect(user.id).toEqual(res.body.data.id);
