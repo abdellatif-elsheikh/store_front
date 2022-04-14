@@ -19,13 +19,21 @@ you will need to run one of those commands in the root directory
 `yarn`
 `npm i`
 
-### 1. setup the project
+## 1. setup the project
+
+### First setup postgresql
+
+you will need to install postgresql on your local machine to create databases
+you can install postgresql from here<https://www.postgresql.org/download/>
+
 
 first create .env file to hold the required information's
 in .env file create the necessary environment variables
 example (
 PORT=3000
 HOST=localhost
+
+```bash
 # DATABASE ENV
 NODE_ENV=dev
 POSTGRES_PORT=5432
@@ -41,6 +49,7 @@ SECRET_TOKEN = @545ssd!ds12^vfroandom-secret-token-43re4$454sdf54%54dfs
 
 SALT_ROUNDS=12
 )
+```
 
 ### 2. DB Creation and Migrations
 

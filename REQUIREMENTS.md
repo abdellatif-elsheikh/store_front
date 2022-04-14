@@ -6,7 +6,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 
-### basic url <http://localhost/api/>
+### basic url 
+http://localhost/api/
 
 ## method rules
 
