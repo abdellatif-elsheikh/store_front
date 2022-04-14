@@ -6,8 +6,9 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 
-### basic url 
-http://localhost/api/
+### basic url
+
+http://localhost/api
 
 ## method rules
 
@@ -20,122 +21,131 @@ authenticate<post>
 
 #### Users
 
-use [basic url](#basic-url) followed by </users> to access the **index** and **create** routes
+- Index **token required**
+  - HTTP verb `GET`
+  - endpoint `/api/users`
+    if there is users
+    the data will be like that
 
-- Index [token required]
-  if there is users
-  the data will be like that
-
-```json
-{
-  "status": 200,
-  "message": "success",
-  "data": [
+    ```json
     {
-      "id": "0a03e980-30f1-4c1b-9921-29d40562b6be",
+      "status": 200,
+      "message": "success",
+      "data": [
+        {
+          "id": "0a03e980-30f1-4c1b-9921-29d40562b6be",
+          "user_name": "test",
+          "first_name": "test",
+          "last_name": "test",
+          "email": "test@gmial.com",
+          "gender": "male/female"
+        }
+      ]
+    }
+    ```
+
+- Create **No token required**
+  - HTTP verb `POST`
+  - endpoint `/api/users`
+    the same endpoint as index route put uses the post method
+    *example for data required*
+
+    ```json
+    {
       "user_name": "test",
       "first_name": "test",
       "last_name": "test",
       "email": "test@gmial.com",
+      "password": "password",
       "gender": "male/female"
     }
-  ]
-}
-```
+    ```
 
-- Create N[token required]
-  the same endpoint as index route put uses the post method
-  data required
+*example for data received*
 
-```json
-{
-  "user_name": "test",
-  "first_name": "test",
-  "last_name": "test",
-  "email": "test@gmial.com",
-  "password": "password",
-  "gender": "male/female"
-}
-```
-
-data
-
-```json
-{
+  ```json
   {
-  "status": 200,
-  "message": "success",
-  "data": {
-    "id": "c5a14372-9eb8-4611-ae24-b860a4e305eb",
-    "user_name": "test",
-    "first_name": "test",
-    "last_name": "test",
-    "email": "test@gmial.com",
-    "gender": "male/female",
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYzVhMTQzNzItOWViOC00NjExLWFlMjQtYjg2MGE0ZTMwNWViIiwidXNlcl9uYW1lIjoiYWhtZWQxNzEiLCJmaXJzdF9uYW1lIjoiYWhtZWQiLCJsYXN0X25hbWUiOiJlbHNoaWtoIiwiZW1haWwiOiJhaG1lZDFAZ21pYWwuY29tIiwiZ2VuZGVyIjoibWFsZSJ9LCJpYXQiOjE2NDk3Nzc4MTF9.0G-h1EkI8bCakpH9cyOyyAHpWEJ0UvhOmMxpgGo1EAU"
+    {
+    "status": 200,
+    "message": "success",
+    "data": {
+      "id": "c5a14372-9eb8-4611-ae24-b860a4e305eb",
+      "user_name": "test",
+      "first_name": "test",
+      "last_name": "test",
+      "email": "test@gmial.com",
+      "gender": "male/female",
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYzVhMTQzNzItOWViOC00NjExLWFlMjQtYjg2MGE0ZTMwNWViIiwidXNlcl9uYW1lIjoiYWhtZWQxNzEiLCJmaXJzdF9uYW1lIjoiYWhtZWQiLCJsYXN0X25hbWUiOiJlbHNoaWtoIiwiZW1haWwiOiJhaG1lZDFAZ21pYWwuY29tIiwiZ2VuZGVyIjoibWFsZSJ9LCJpYXQiOjE2NDk3Nzc4MTF9.0G-h1EkI8bCakpH9cyOyyAHpWEJ0UvhOmMxpgGo1EAU"
+    }
   }
-}
-}
-```
+  }
+  ```
 
-- getOne [token required]
-  end point use [basic url](#basic-url) followed by </users/yourId>
-  data
+- getOne **token required**
 
-```json
-{
+  - HTTP verb `GET`
+  - endpoint `/api/users/:id`
+
+  *example for data received*
+
+  ```json
   {
-  "status": 200,
-  "message": "success",
-  "data": {
-    "id": "c5a14372-9eb8-4611-ae24-b860a4e305eb",
-    "user_name": "test",
-    "first_name": "test",
-    "last_name": "test",
-    "email": "test@gmial.com",
-    "gender": "male/female",
+    {
+    "status": 200,
+    "message": "success",
+    "data": {
+      "id": "c5a14372-9eb8-4611-ae24-b860a4e305eb",
+      "user_name": "test",
+      "first_name": "test",
+      "last_name": "test",
+      "email": "test@gmial.com",
+      "gender": "male/female",
+    }
   }
-}
-}
-```
+  }
+  ```
 
-- update [token required]
-  end point use [basic url](#basic-url) followed by </users/yourId>
-  data required
+- update **token required**
+  - HTTP verb `PUT`
+  - endpoint `/api/users/:id`
+    *example for data required*
 
-```json
-{
-  "user_name": "test",
-  "first_name": "test",
-  "last_name": "test",
-  "email": "test@gmial.com",
-  "password": "password",
-  "gender": "male/female"
-}
-```
+    ```json
+    {
+      "user_name": "test",
+      "first_name": "test",
+      "last_name": "test",
+      "email": "test@gmial.com",
+      "password": "password",
+      "gender": "male/female"
+    }
+    ```
 
-data
+  *example for data received*
 
-```json
-{
+  ```json
   {
-  "status": 200,
-  "message": "success",
-  "data": {
-    "id": "c5a14372-9eb8-4611-ae24-b860a4e305eb",
-    "user_name": "test",
-    "first_name": "test",
-    "last_name": "test",
-    "email": "test@gmial.com",
-    "gender": "male/female",
+    {
+    "status": 200,
+    "message": "success",
+    "data": {
+      "id": "c5a14372-9eb8-4611-ae24-b860a4e305eb",
+      "user_name": "test",
+      "first_name": "test",
+      "last_name": "test",
+      "email": "test@gmial.com",
+      "gender": "male/female",
+    }
   }
-}
-}
-```
+  }
+  ```
 
-- delete [token required]
-  end point use [basic url](#basic-url) followed by </users/yourId>
-  data
+- delete **token required**
+
+  - HTTP verb `DELETE`
+  - endpoint `/api/users/:id`
+
+  *example for data received*
 
 ```json
 {
@@ -146,10 +156,11 @@ data
 }
 ```
 
-- authenticate [token required]
-  end point use [basic url](#basic-url) followed by </users/auth>
+- authenticate **NO token required**
+  - HTTP verb `POST`
+  - endpoint `/api/users/auth`
 
-data required
+*example for data required*
 
 ```json
 {
@@ -158,7 +169,7 @@ data required
 }
 ```
 
-data
+*example for data received*
 
 ```json
 {
@@ -178,45 +189,65 @@ data
 
 #### Products
 
-- Create [token required]
-  data required
-  name,
-  price,
-  you can put **<category>** if you want
-  data
+- Create **token required**
+
+  - HTTP verb `POST`
+  - endpoint `/api/products`
+    *example for data required*
 
   ```json
-  "status": 200,
-  "message": "success",
-  "data": [
-    {
-      "id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
-      "name": "test",
-      "price": "2000.00",
-      "category": "test"
-    },
-  ]
+  {
+    "name": "nova 5t",
+    "price": "5000",
+    "category": "mobile"
+  }
   ```
 
-- Index [token required]
-  end point use [basic url](#basic-url) followed by </products>
+  *example for data received*
+
+  ```json
+  {
+    "status": 200,
+    "message": "success",
+    "data": [
+      {
+        "id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
+        "name": "nova 5t",
+        "price": "5000",
+        "category": "mobile"
+      }
+    ]
+  }
+  ```
+
+- Index **No token required**
+
+  - HTTP verb `GET`
+  - endpoint `/api/products`
+
   if there is a products
   data
+
   ```json
-  "status": 200,
-  "message": "success",
-  "data": [
-    {
-      "id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
-      "name": "test",
-      "price": "2000.00",
-      "category": "test"
-    },
-  ]
+  {
+    "status": 200,
+    "message": "success",
+    "data": [
+      {
+        "id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
+        "name": "nova 5t",
+        "price": "5000",
+        "category": "mobile"
+      }
+    ]
+  }
   ```
-- getOne [token required]
-  end point use [basic url](#basic-url) followed by </products/productId>
-  data
+
+- getOne **No token required**
+
+  - HTTP verb `GET`
+  - endpoint `/api/products/:id`
+    data
 
   ```json
   {
@@ -225,36 +256,47 @@ data
     "data": {
       "id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
       "name": "nova 5t",
-      "price": "2000.00",
-      "category": "mobiles"
+      "price": "5000.00",
+      "category": "mobile"
     }
   }
   ```
 
-- update [token required]
-  end point use [basic url](#basic-url) followed by </products/productId>
-  data required
-  name,
-  price,
-  you can put **<category>** if you want
-  data
+- update **token required**
+
+  - HTTP verb `PUT`
+  - endpoint `/api/products/:id`
+    *example for data required*
 
   ```json
+  {
+    "name": "nova 5t",
+    "price": "5000",
+    "category": "mobile"
+  }
+  ```
+
+  *example for data received*
+
+  ```json
+  {
     "status": 200,
     "message": "success",
     "data": [
       {
         "id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
-        "name": "test",
-        "price": "2000.00",
-        "category": "test"
-      },
+        "name": "nova 5t",
+        "price": "5000",
+        "category": "mobile"
+      }
     ]
+  }
   ```
 
-- delete [token required]
-  end point use [basic url](#basic-url) followed by </products/productId>
-  data
+- delete **token required**
+  - HTTP verb `DELETE`
+  - endpoint `/api/products/:id`
+    *example for data received*
   ```json
   {
     "deleted": {
@@ -266,131 +308,216 @@ data
 
 #### Orders
 
--index
-end point use [basic url](#basic-url) followed by </orders>
-data
+-index **token required**
 
-```json
-{
-  "status": 200,
-  "message": "success",
-  "data": [
+  - HTTP verb `GET`
+  - endpoint `api/orders`
+    if there's orders
+    *example for data received*
+
+  ```json
+  {
+    "status": 200,
+    "message": "success",
+    "data": [
+      {
+        "id": "9a0a93bd-bdf2-4641-9b41-3ea7171c86f3",
+        "status": "active",
+        "created_at": "2022-04-12T12:45:04.778Z",
+        "updated_at": "2022-04-12T12:45:04.778Z",
+        "user_id": "0a03e980-30f1-4c1b-9921-29d40562b6be"
+      }
+    ]
+  }
+  ```
+
+- create **token required**
+  - HTTP verb `POST`
+  - endpoint `api/orders`
+    *example for data required*
+
+    ```json
     {
+      "status": "active",
+      "user_id": "0a03e980-30f1-4c1b-9921-29d40562b6be"
+    }
+    ```
+    *example for data received*
+    ```json
+        {
+      "status": 201,
+      "message": "success",
+      "data": {
+        "id": "788e4b5d-5fea-4f26-817f-6813c01af38b",
+        "status": "active",
+        "created_at": "2022-04-14T01:59:50.634Z",
+        "updated_at": "2022-04-14T01:59:50.634Z",
+        "user_id": "0a03e980-30f1-4c1b-9921-29d40562b6be"
+      }
+    }
+    ```
+
+
+- getOne **token required**
+  - HTTP verb `GET`
+  - endpoint `api/orders/:id`
+  *example for data received*
+
+  ```json
+  {
+    "status": 200,
+    "message": "success",
+    "data": {
       "id": "9a0a93bd-bdf2-4641-9b41-3ea7171c86f3",
       "status": "active",
       "created_at": "2022-04-12T12:45:04.778Z",
       "updated_at": "2022-04-12T12:45:04.778Z",
       "user_id": "0a03e980-30f1-4c1b-9921-29d40562b6be"
     }
-  ]
-}
-```
+  }
+  ```
 
-- create
-  end point use [basic url](#basic-url) followed by </orders>
-  data required
-  user_id,
-  status
-
-- getOne
-  end point use [basic url](#basic-url) followed by </orders/orderId>
-  data
-
-```json
-{
-  "status": 200,
+- update **token required**
+  - HTTP verb `PUT`
+  - endpoint `api/orders/:id`
+  *example for data required*
+  ```json
+  {
+    "status": "complete",
+    "user_id": "0a03e980-30f1-4c1b-9921-29d40562b6be"
+  }
+  ```
+  *example for data received*
+  ```json
+  {
+  "status": 201,
   "message": "success",
   "data": {
     "id": "9a0a93bd-bdf2-4641-9b41-3ea7171c86f3",
-    "status": "active",
+    "status": "complete",
     "created_at": "2022-04-12T12:45:04.778Z",
     "updated_at": "2022-04-12T12:45:04.778Z",
     "user_id": "0a03e980-30f1-4c1b-9921-29d40562b6be"
   }
-}
-```
+  }
+  ```
 
-- update
-  end point use [basic url](#basic-url) followed by </orders/orderId>
-  data required
-  user_id,
-  status
+- Current Order by user id **token required**
+  - HTTP verb `GET`
+  - endpoint `api/orders/users/:id`
+  *example for data received*
 
-- Current Order by user (args: user id)[token required]
-  end point use [basic url](#basic-url) followed by </orders/users/userId>
-  data
-
-```json
-{
-  "status": 200,
-  "message": "success",
-  "data": [
-    {
-      "id": "9a0a93bd-bdf2-4641-9b41-3ea7171c86f3",
-      "status": "active",
-      "user_id": "0a03e980-30f1-4c1b-9921-29d40562b6be",
-      "user_name": "ahmed17",
-      "products": {}
-    }
-  ]
-}
-```
-
-order_products
-
-- index
-  end point use [basic url](#basic-url) followed by </order_products>
-  data
-
-```json
-{
-  "status": 200,
-  "message": "success",
-  "data": [
-    {
-      "id": "ea1b88ca-c734-4ca5-af71-28b44697f3d0",
-      "order_id": "9a0a93bd-bdf2-4641-9b41-3ea7171c86f3",
-      "use_id": "0a03e980-30f1-4c1b-9921-29d40562b6be",
-      "user": "ahmed17",
-      "product": {
-        "id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
-        "name": "nova 5t",
-        "price": 2000,
-        "category": "mobiles",
-        "quantity": 6
+  ```json
+  {
+    "status": 200,
+    "message": "success",
+    "data": [
+      {
+        "id": "9a0a93bd-bdf2-4641-9b41-3ea7171c86f3",
+        "status": "active",
+        "user_id": "0a03e980-30f1-4c1b-9921-29d40562b6be",
+        "user_name": "test",
+        "products": {
+          "id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
+          "name": "nova 5t",
+          "price": 5000,
+          "category": "mobile"
+        }
       }
-    }
-  ]
-}
-```
+    ]
+  }
+  ```
 
-- create
-  data required
-  order_id,
-  product_id,
-  quantity
+### order_products
 
-- get one
-  end point use [basic url](#basic-url) followed by </order_products/order_id/products/product_id>
+- index **token required**
+  HTTP verb `GET`
+  endpoint `api/order_products`
+  
+  if there is data
+  *example for data received*
 
-- update
-  end point use [basic url](#basic-url) followed by </order_products/order_id>
-  data required
-  order_id,
-  product_id,
-  quantity
+  ```json
+  {
+    "status": 200,
+    "message": "success",
+    "data": [
+      {
+        "id": "ea1b88ca-c734-4ca5-af71-28b44697f3d0",
+        "order_id": "9a0a93bd-bdf2-4641-9b41-3ea7171c86f3",
+        "use_id": "0a03e980-30f1-4c1b-9921-29d40562b6be",
+        "user": "test",
+        "product": {
+          "id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
+          "name": "nova 5t",
+          "price": 5000,
+          "category": "mobile",
+          "quantity": 6
+        }
+      }
+    ]
+  }
+  ```
 
-- delete
-  end point use [basic url](#basic-url) followed by </order_products/order_id>
+- create **token required**
+  - HTTP verb `POST`
+  - endpoint `api/order_products`
+  *example for data required*
+  ```json
+  {
+    "order_id": "9a0a93bd-bdf2-4641-9b41-3ea7171c86f3",
+    "product_id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
+    "quantity": 6
+  }
+  ```
 
-data
-
-```json
-{
+- get one **token required**
+  - HTTP verb `GET`
+  - endpoint `api/order_products/:order_id/products/:product_id`
+  *example for data received*
+  ```json
+  {
   "status": 200,
-  "message": "order product deleted successfully"
-}
-```
+  "message": "success",
+  "data": {
+    "id": "ea1b88ca-c734-4ca5-af71-28b44697f3d0",
+    "order_id": "9a0a93bd-bdf2-4641-9b41-3ea7171c86f3",
+    "product_id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
+    "user_id": "0a03e980-30f1-4c1b-9921-29d40562b6be",
+    "user": "ahmed17",
+    "quantity": 6,
+    "product_name": "nova 5t",
+    "product_price": "2000.00",
+    "category": "mobiles"
+  }
+  }
+  ```
+
+- update **token required**
+  HTTP verb `PUT`
+  endpoint `api/order_products/:id`
+
+  *example for data required*
+  ```json
+  {
+    "order_id": "72bd6ae0-9ec0-486e-ba84-c6945dff50d0",
+    "product_id": "619f15c7-ec37-4f33-a29b-0bdc226af7df",
+    "quantity": 4
+  }
+  ```
+
+- delete **token required**
+  HTTP verb `DELETE`
+  endpoint `api/order_products/:id`
+
+  *example for data received*
+
+  ```json
+  {
+    "status": 200,
+    "message": "order product deleted successfully"
+  }
+  ```
 
 ## Data Shapes
 
@@ -437,7 +564,7 @@ data
   order_id uuid NOT NULL,
   product_id uuid NOT NULL,
   quantity INTEGER NOT NULL,
-  
+
   PRIMARY KEY (id),
   FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE

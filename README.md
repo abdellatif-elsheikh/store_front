@@ -26,20 +26,33 @@ you will need to run one of those commands in the root directory
 you will need to install postgresql on your local machine to create databases
 you can install postgresql from here<https://www.postgresql.org/download/>
 
+#### create databases
+now that you have installed postgresql successfully you will need to create databases
+first create store_front data base to be your main database 
+**copy and paste that command in psql terminal**
+```bash
+CREATE DATABASE store_front
+```
+then create store_front_test database to be your test database
+**copy and paste that command in psql terminal**
+```bash
+CREATE DATABASE store_front_test
+```
 
-first create .env file to hold the required information's
+#### setup environment variables
+first create **.env** file in root directory to hold the required information's
 in .env file create the necessary environment variables
-example (
-PORT=3000
-HOST=localhost
+example:
 
 ```bash
+PORT=3000
+HOST=localhost
 # DATABASE ENV
 NODE_ENV=dev
 POSTGRES_PORT=5432
 POSTGRES_HOST = localhost
 POSTGRES_USER = postgres
-POSTGRES_PASS = password
+POSTGRES_PASS = your postgres password
 POSTGRES_DB = store_front
 POSTGRES_DB_TEST = store_front_test
 
@@ -48,8 +61,9 @@ BCRYPT_PASSWORD = $fasfds!%5df4554&gfg*878sdf
 SECRET_TOKEN = @545ssd!ds12^vfroandom-secret-token-43re4$454sdf54%54dfs
 
 SALT_ROUNDS=12
-)
 ```
+
+after that you are ready to use the application
 
 ### 2. DB Creation and Migrations
 
@@ -88,5 +102,5 @@ run this command
 by default server will run on <http://localhost:3000>
 but feel free to change these sittings from the env file
 
-### where are the end points
-you will find that on more in the requirements file
+### where are the end points and schema?
+- See [REQUIREMENTS.md](./REQUIREMENTS.md) file
