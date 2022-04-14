@@ -35,7 +35,7 @@ class ProductModel {
     }
   }
 
-  async getOne(id: number): Promise<Product> {
+  async getOne(id: string): Promise<Product> {
     try {
       const conn = await db.connect();
       const sql = 'SELECT * FROM products WHERE id = $1';
@@ -50,7 +50,7 @@ class ProductModel {
     }
   }
 
-  async update(id: number, p: Product): Promise<Product> {
+  async update(id: string, p: Product): Promise<Product> {
     try {
       const conn = await db.connect();
       const sql =
@@ -67,7 +67,7 @@ class ProductModel {
     }
   }
 
-  async delete(id: number): Promise<{ status: number; message: string }> {
+  async delete(id: string): Promise<{ status: number; message: string }> {
     try {
       const conn = await db.connect();
       const sql = 'DELETE FROM products WHERE id = $1 RETURNING *';

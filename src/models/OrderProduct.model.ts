@@ -1,8 +1,9 @@
 import db from '../database';
 import OrderProduct from '../types/OrderProduct.type';
+import ReturenOP from '../types/Op.type';
 
 class OrderProductModel {
-  async index(): Promise<OrderProduct[]> {
+  async index(): Promise<ReturenOP[]> {
     try {
       const conn = await db.connect();
       const sql = `SELECT op.id as id, op.order_id as order_id, u.id as use_id, u.user_name as user, JSON_BUILD_OBJECT('id', p.id, 'name', p.name, 'price', p.price, 'category' ,p.category ,'quantity', op.quantity) as product
@@ -39,7 +40,20 @@ class OrderProductModel {
     }
   }
 
-  async getOne(order_id: string, product_id: string): Promise<OrderProduct> {
+  async getOne(
+    order_id: string,
+    product_id: string
+  ): Promise<{
+    id: string;
+    order_id: string;
+    product_id: string;
+    user_id: string;
+    user: string;
+    quantity: number;
+    product_name: string;
+    product_price: number;
+    category: string;
+  }> {
     try {
       const conn = await db.connect();
       const sql = `SELECT op.id as id, op.order_id as order_id, op.product_id as product_id, u.id as user_id, u.user_name as user, op.quantity as quantity,

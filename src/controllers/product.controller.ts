@@ -57,7 +57,7 @@ export const getOne = async (
   next: NextFunction
 ): Promise<unknown> => {
   try {
-    const id = req.params.id as unknown as number;
+    const id = req.params.id;
     const product = await productModel.getOne(id);
     return res.status(200).json({
       status: 200,
@@ -83,7 +83,7 @@ export const update = async (
         message: validation.error.message,
       });
     }
-    const id = req.params.id as unknown as number;
+    const id = req.params.id;
     const product = await productModel.update(id, dataInput);
     return res.status(200).json({
       status: 200,
@@ -101,7 +101,7 @@ export const deleteProduct = async (
   next: NextFunction
 ): Promise<unknown> => {
   try {
-    const id = req.params.id as unknown as number;
+    const id = req.params.id;
     const deleted = await productModel.delete(id);
     return res.status(200).json({
       deleted,

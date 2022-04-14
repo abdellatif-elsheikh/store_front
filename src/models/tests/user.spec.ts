@@ -29,7 +29,6 @@ describe('Test User Model', () => {
   });
 
   describe('test model methods behaviors', () => {
-    let userId: string;
     const user = {
       user_name: 'test',
       email: 'test@email.com',
@@ -48,7 +47,7 @@ describe('Test User Model', () => {
     it('create should return created user', async () => {
       const result = await userModel.create(user);
       const { id, user_name, first_name, last_name, email, gender } = result;
-      userId = id as string;
+      user.id = id as string;
       expect(user_name).toEqual(user.user_name);
       expect(first_name).toEqual(user.first_name);
       expect(last_name).toEqual(user.last_name);
@@ -60,7 +59,7 @@ describe('Test User Model', () => {
       const users = await userModel.index();
       const { id, user_name, first_name, last_name, email, gender } = users[0];
       expect(users.length).toBe(1);
-      expect(id).toEqual(userId);
+      expect(id).toEqual(user.id as string);
       expect(user_name).toEqual(user.user_name);
       expect(first_name).toEqual(user.first_name);
       expect(last_name).toEqual(user.last_name);
@@ -69,7 +68,7 @@ describe('Test User Model', () => {
     });
 
     it('getOne should get user with specific id', async () => {
-      const result = await userModel.getOne(userId);
+      const result = await userModel.getOne(user.id as string);
       const { user_name, first_name, last_name, email, gender } = result;
       expect(user.user_name).toEqual(user_name);
       expect(user.first_name).toEqual(first_name);
@@ -79,7 +78,7 @@ describe('Test User Model', () => {
     });
 
     it('update should return updated user', async () => {
-      const result = await userModel.update(userId, {
+      const result = await userModel.update(user.id as string, {
         ...user,
         user_name: 'new test',
         email: 'new@gmail.com',
@@ -123,7 +122,7 @@ describe('Test User Model', () => {
     });
 
     it('delete method should delete user with specific id', async () => {
-      const deleted = await userModel.delete(userId);
+      const deleted = await userModel.delete(user.id as string);
       expect(deleted.status).toBe(200);
       expect(deleted.message).toBe('User deleted successfully');
     });
